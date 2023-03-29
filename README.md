@@ -1,4 +1,4 @@
-# Kotlin Spring Boot Tutorial Part 1: Creating REST endpoints for a task app
+# GitHub Actions CI/CD Tutorial Series - Part 3
 
 ### Check out this article for more information:
 
