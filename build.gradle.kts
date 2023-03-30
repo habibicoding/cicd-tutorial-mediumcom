@@ -18,7 +18,7 @@ repositories {
 }
 
 application {
-    mainClass.set("com.example.cicdtutorial.CicdTutorialApplication")
+    mainClass.set("com.example.cicdtutorial.CicdTutorialApplicationKt")
 }
 
 dependencies {
@@ -50,7 +50,7 @@ tasks.withType<Test> {
 
 tasks.jar {
     manifest {
-        attributes["Main-Class"] = "com.example.cicdtutorial.CicdTutorialApplication"
+        attributes["Main-Class"] = "com.example.cicdtutorial.CicdTutorialApplicationKt"
     }
     archiveClassifier.set("plain")
 }
