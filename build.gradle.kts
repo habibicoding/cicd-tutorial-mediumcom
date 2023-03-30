@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    application
     id("org.springframework.boot") version "3.0.5"
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.7.22"
@@ -14,6 +15,10 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
+}
+
+application {
+    mainClass.set("com.example.cicdtutorial.CicdTutorialApplication")
 }
 
 dependencies {
@@ -42,3 +47,12 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+/*
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "com.example.cicdtutorial.CicdTutorialApplication"
+    }
+    archiveClassifier.set("plain")
+}
+*/
