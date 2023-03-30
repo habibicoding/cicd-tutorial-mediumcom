@@ -1,12 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    application
-    id("org.springframework.boot") version "3.0.5"
+    id("org.springframework.boot") version "3.0.0"
     id("io.spring.dependency-management") version "1.1.0"
-    kotlin("jvm") version "1.7.22"
-    kotlin("plugin.spring") version "1.7.22"
-    kotlin("plugin.jpa") version "1.7.22"
+    kotlin("jvm") version "1.7.21"
+    kotlin("plugin.spring") version "1.7.21"
+    kotlin("plugin.jpa") version "1.7.21"
 }
 
 group = "com.example"
@@ -15,10 +14,6 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
-}
-
-application {
-    mainClass.set("com.example.cicdtutorial.CicdTutorialApplicationKt")
 }
 
 dependencies {
@@ -31,8 +26,9 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.postgresql:postgresql")
 
-    // for  testing
+    // test stuff
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    runtimeOnly("com.h2database:h2")
     testImplementation("org.assertj:assertj-core:3.23.1")
     testImplementation("io.mockk:mockk:1.13.2")
 }
@@ -46,11 +42,4 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-tasks.jar {
-    manifest {
-        attributes["Main-Class"] = "com.example.cicdtutorial.CicdTutorialApplicationKt"
-    }
-    archiveClassifier.set("plain")
 }
