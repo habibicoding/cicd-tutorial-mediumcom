@@ -20,7 +20,7 @@ RUN groupadd -r app && useradd --no-log-init -r -g app app
 WORKDIR /app
 
 # Copy the compiled JAR file from the builder stage
-COPY --from=builder /build/libs/cicd-tutorial-0.0.1-SNAPSHOT-plain.jar task-app-api.jar
+COPY --from=builder /build/build/libs/cicd-tutorial-0.0.1-SNAPSHOT.jar task-app-api.jar
 
 # Use the created user
 USER app
