@@ -76,38 +76,38 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-deploy:
-  name: Deploy Project
-  needs: build
-  if: github.event_name == 'push'
-  runs-on: ubuntu-22.04
-  steps:
-    - name: Notify deployment started
-      uses: 8398a7/action-slack@v3
-      with:
-        status: ${{ job.status }}
-        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-        text: 'Linode deployment started... :crossed_fingers: so God will / in shaAllah / ان شاء الله خير'
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  deploy:
+    name: Deploy Project
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Notify deployment started
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+          text: 'Linode deployment started... :crossed_fingers: so God will / in shaAllah / ان شاء الله خير'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-    - name: Setup SSH agent
-      uses: webfactory/ssh-agent@v0.7.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Deploy to Droplet
-      run: |
-        ssh -o StrictHostKeyChecking=no -p ${{ secrets.DROPLET_PORT }} ${{ secrets.DEPLOYMENT_USER }}@${{ secrets.DEPLOYMENT_HOST }} "\
-          docker-compose pull && \
-          docker-compose up -d && \
-          docker system prune -af"
+      - name: Deploy to Droplet
+        run: |
+          ssh -o StrictHostKeyChecking=no -p ${{ secrets.DROPLET_PORT }} ${{ secrets.DEPLOYMENT_USER }}@${{ secrets.DEPLOYMENT_HOST }} "\
+            docker-compose pull && \
+            docker-compose up -d && \
+            docker system prune -af"
 
-    - name: Notify deployment results
-      uses: 8398a7/action-slack@v3
-      with:
-        status: ${{ job.status }}
-        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-        text: 'Linode deployment finished... :rocket: :palms_up_together: Thanks to God / Alhamdulillah / ٱلْحَمْدُ لِلَّٰهِ'
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Notify deployment results
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+          text: 'Linode deployment finished... :rocket: :palms_up_together: Thanks to God / Alhamdulillah / ٱلْحَمْدُ لِلَّٰهِ'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
