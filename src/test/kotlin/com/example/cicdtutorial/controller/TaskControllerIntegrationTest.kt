@@ -25,7 +25,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import java.time.LocalDateTime
 
-
 @ExtendWith(SpringExtension::class)
 @WebMvcTest(controllers = [TaskController::class])
 internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: MockMvc) {
@@ -40,10 +39,9 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
         isReminderSet = false,
         isTaskOpen = false,
         createdOn = LocalDateTime.now(),
-        priority = Priority.LOW
+        priority = Priority.LOW,
     )
     private val mapper = jacksonObjectMapper()
-
 
     @BeforeEach
     fun setUp() {
@@ -59,7 +57,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             isReminderSet = false,
             isTaskOpen = false,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW
+            priority = Priority.LOW,
         )
         val expectedDtos: List<TaskDto> = listOf(dummyDto1, taskDto2)
 
@@ -96,7 +94,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             isReminderSet = false,
             isTaskOpen = true,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW
+            priority = Priority.LOW,
         )
 
         `when`(mockService.getAllOpenTasks()).thenReturn(listOf(taskDto2))
@@ -137,7 +135,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             "update task",
             isReminderSet = false,
             isTaskOpen = false,
-            priority = Priority.LOW
+            priority = Priority.LOW,
         )
         val dummyDto = TaskDto(
             44,
@@ -145,14 +143,14 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             isReminderSet = false,
             isTaskOpen = false,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW
+            priority = Priority.LOW,
         )
 
         `when`(mockService.updateTask(dummyDto.id, request)).thenReturn(dummyDto)
         val resultActions: ResultActions = mockMvc.perform(
             MockMvcRequestBuilders.patch("/api/v1/tasks/${dummyDto.id}")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(request))
+                .content(mapper.writeValueAsString(request)),
         )
 
         resultActions.andExpect(MockMvcResultMatchers.status().isOk)
@@ -167,7 +165,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             isReminderSet = false,
             isTaskOpen = false,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW
+            priority = Priority.LOW,
         )
         val taskDto = TaskDto(
             0,
@@ -175,14 +173,14 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             isReminderSet = false,
             isTaskOpen = false,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW
+            priority = Priority.LOW,
         )
 
         `when`(mockService.createTask(request)).thenReturn(taskDto)
         val resultActions: ResultActions = mockMvc.perform(
             MockMvcRequestBuilders.post("/api/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(request))
+                .content(mapper.writeValueAsString(request)),
         )
 
         resultActions.andExpect(MockMvcResultMatchers.status().isOk)
@@ -195,7 +193,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
         val expectedMessage = "Task with id: $taskId has been deleted."
 
         `when`(mockService.deleteTask(taskId)).thenReturn(expectedMessage)
-        val resultActions: ResultActions = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/tasks/${taskId}"))
+        val resultActions: ResultActions = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/tasks/$taskId"))
 
         resultActions.andExpect(MockMvcResultMatchers.status().`is`(200))
         resultActions.andExpect(content().string(expectedMessage))
