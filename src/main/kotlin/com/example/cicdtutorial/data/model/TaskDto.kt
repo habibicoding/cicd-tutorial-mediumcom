@@ -8,5 +8,5 @@ data class TaskDto(
     val isReminderSet: Boolean,
     val isTaskOpen: Boolean,
     val createdOn: LocalDateTime,
-    val priority: Priority,
+    val priority: Priority
 )

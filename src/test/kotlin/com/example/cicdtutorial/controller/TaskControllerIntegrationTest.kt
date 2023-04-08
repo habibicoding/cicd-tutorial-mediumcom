@@ -39,7 +39,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
         isReminderSet = false,
         isTaskOpen = false,
         createdOn = LocalDateTime.now(),
-        priority = Priority.LOW,
+        priority = Priority.LOW
     )
     private val mapper = jacksonObjectMapper()
 
@@ -57,7 +57,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             isReminderSet = false,
             isTaskOpen = false,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW,
+            priority = Priority.LOW
         )
         val expectedDtos: List<TaskDto> = listOf(dummyDto1, taskDto2)
 
@@ -94,7 +94,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             isReminderSet = false,
             isTaskOpen = true,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW,
+            priority = Priority.LOW
         )
 
         `when`(mockService.getAllOpenTasks()).thenReturn(listOf(taskDto2))
@@ -113,7 +113,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
         `when`(mockService.getAllClosedTasks()).thenReturn(listOf(dummyDto1))
         val resultActions: ResultActions = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/tasks/closed"))
 
-        resultActions.andExpect(MockMvcResultMatchers.status().`is`(200))
+        resultActions.andExpect(MockMvcResultMatchers.status().isOk)
         resultActions.andExpect(content().contentType(MediaType.APPLICATION_JSON))
         resultActions.andExpect(jsonPath("$.size()").value(1))
         resultActions.andExpect(jsonPath("$[0].isTaskOpen").value(dummyDto1.isTaskOpen))
@@ -135,7 +135,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             "update task",
             isReminderSet = false,
             isTaskOpen = false,
-            priority = Priority.LOW,
+            priority = Priority.LOW
         )
         val dummyDto = TaskDto(
             44,
@@ -143,7 +143,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             isReminderSet = false,
             isTaskOpen = false,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW,
+            priority = Priority.LOW
         )
 
         `when`(mockService.updateTask(dummyDto.id, request)).thenReturn(dummyDto)
@@ -165,7 +165,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             isReminderSet = false,
             isTaskOpen = false,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW,
+            priority = Priority.LOW
         )
         val taskDto = TaskDto(
             0,
@@ -173,7 +173,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
             isReminderSet = false,
             isTaskOpen = false,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW,
+            priority = Priority.LOW
         )
 
         `when`(mockService.createTask(request)).thenReturn(taskDto)

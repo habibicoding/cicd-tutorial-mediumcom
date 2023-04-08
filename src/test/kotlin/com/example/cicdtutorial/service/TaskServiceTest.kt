@@ -43,7 +43,7 @@ internal class TaskServiceTest {
             isReminderSet = false,
             isTaskOpen = false,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW,
+            priority = Priority.LOW
         )
     }
 
