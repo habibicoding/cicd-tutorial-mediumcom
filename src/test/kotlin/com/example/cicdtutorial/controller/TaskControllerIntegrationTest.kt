@@ -178,7 +178,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
 
         `when`(mockService.createTask(request)).thenReturn(taskDto)
         val resultActions: ResultActions = mockMvc.perform(
-            MockMvcRequestBuilders.post("/api/v1/tasks")
+            MockMvcRequestBuilders.post("/api/v1/tasks").contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(request))
         )
 
