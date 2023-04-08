@@ -14,5 +14,5 @@ data class TaskCreateRequest(
     @NotBlank(message = "created_on can't be empty")
     val createdOn: LocalDateTime,
 
-    val priority: Priority
+    val priority: Priority,
 )
