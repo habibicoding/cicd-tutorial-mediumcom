@@ -10,34 +10,34 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/v1/tasks")
 class TaskController(private val service: TaskService) {
 
-    @GetMapping("all-tasks")
+    @GetMapping
     fun getAllTasks(): ResponseEntity<List<TaskDto>> = ResponseEntity(service.getAllTasks(), HttpStatus.OK)
 
-    @GetMapping("open-tasks")
+    @GetMapping("open")
     fun getAllOpenTasks(): ResponseEntity<List<TaskDto>> = ResponseEntity(service.getAllOpenTasks(), HttpStatus.OK)
 
-    @GetMapping("closed-tasks")
+    @GetMapping("closed")
     fun getAllClosedTasks(): ResponseEntity<List<TaskDto>> = ResponseEntity(service.getAllClosedTasks(), HttpStatus.OK)
 
-    @GetMapping("task/{id}")
+    @GetMapping("{id}")
     fun getTaskById(@PathVariable id: Long): ResponseEntity<TaskDto> =
         ResponseEntity(service.getTaskById(id), HttpStatus.OK)
 
-    @PostMapping("create")
+    @PostMapping
     fun createTask(
         @Valid @RequestBody createRequest: TaskCreateRequest
     ): ResponseEntity<TaskDto> = ResponseEntity(service.createTask(createRequest), HttpStatus.OK)
 
-    @PatchMapping("update/{id}")
+    @PatchMapping("{id}")
     fun updateTask(
         @PathVariable id: Long,
         @Valid @RequestBody updateRequest: TaskUpdateRequest
     ): ResponseEntity<TaskDto> = ResponseEntity(service.updateTask(id, updateRequest), HttpStatus.OK)
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     fun deleteTask(@PathVariable id: Long): ResponseEntity<String> =
         ResponseEntity(service.deleteTask(id), HttpStatus.OK)
 }
