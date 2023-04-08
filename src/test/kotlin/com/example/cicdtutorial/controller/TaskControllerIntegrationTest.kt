@@ -150,7 +150,7 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
         val resultActions: ResultActions = mockMvc.perform(
             MockMvcRequestBuilders.patch("/api/v1/tasks/${dummyDto.id}")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(request)),
+                .content(mapper.writeValueAsString(request))
         )
 
         resultActions.andExpect(MockMvcResultMatchers.status().isOk)
@@ -179,11 +179,10 @@ internal class TaskControllerIntegrationTest(@Autowired private val mockMvc: Moc
         `when`(mockService.createTask(request)).thenReturn(taskDto)
         val resultActions: ResultActions = mockMvc.perform(
             MockMvcRequestBuilders.post("/api/v1/tasks")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(request)),
+                .content(mapper.writeValueAsString(request))
         )
 
-        resultActions.andExpect(MockMvcResultMatchers.status().isOk)
+        resultActions.andExpect(MockMvcResultMatchers.status().`is`(200))
         resultActions.andExpect(content().contentType(MediaType.APPLICATION_JSON))
         resultActions.andExpect(jsonPath("$.isTaskOpen").value(taskDto.isTaskOpen))
     }

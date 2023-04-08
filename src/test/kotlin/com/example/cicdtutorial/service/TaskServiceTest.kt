@@ -182,7 +182,7 @@ internal class TaskServiceTest {
                 task.description,
                 isReminderSet = false,
                 isTaskOpen = false,
-                priority = Priority.LOW,
+                priority = Priority.LOW
             )
 
         every { mockRepository.existsById(any()) } returns true
