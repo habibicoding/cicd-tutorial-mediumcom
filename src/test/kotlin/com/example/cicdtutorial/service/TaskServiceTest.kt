@@ -8,19 +8,17 @@ import com.example.cicdtutorial.data.model.TaskUpdateRequest
 import com.example.cicdtutorial.exception.BadRequestException
 import com.example.cicdtutorial.exception.TaskNotFoundException
 import com.example.cicdtutorial.repository.TaskRepository
-import io.mockk.*
+import io.mockk.* // ktlint-disable no-wildcard-imports
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.RelaxedMockK
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.Test
-import org.assertj.core.api.Assertions.assertThat
-
-import org.junit.jupiter.api.Assertions.*
 import io.mockk.junit5.MockKExtension
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.* // ktlint-disable no-wildcard-imports
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.extension.ExtendWith
 import java.time.LocalDateTime
-
 
 @ExtendWith(MockKExtension::class)
 internal class TaskServiceTest {
@@ -34,7 +32,6 @@ internal class TaskServiceTest {
     private val task = Task()
     private lateinit var createRequest: TaskCreateRequest
 
-
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
@@ -43,7 +40,7 @@ internal class TaskServiceTest {
             isReminderSet = false,
             isTaskOpen = false,
             createdOn = LocalDateTime.now(),
-            priority = Priority.LOW
+            priority = Priority.LOW,
         )
     }
 
@@ -162,7 +159,6 @@ internal class TaskServiceTest {
         assertThat(deleteTaskMsg).isEqualTo("Task with id: $taskId has been deleted.")
     }
 
-
     @Test
     fun `when delete by task id is called then check if argument could be captured`() {
         val taskIdSlot = slot<Long>()
@@ -183,7 +179,7 @@ internal class TaskServiceTest {
                 task.description,
                 isReminderSet = false,
                 isTaskOpen = false,
-                priority = Priority.LOW
+                priority = Priority.LOW,
             )
 
         every { mockRepository.existsById(any()) } returns true
