@@ -8,19 +8,20 @@ import com.example.cicdtutorial.data.model.TaskUpdateRequest
 import com.example.cicdtutorial.exception.BadRequestException
 import com.example.cicdtutorial.exception.TaskNotFoundException
 import com.example.cicdtutorial.repository.TaskRepository
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.called
+import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.RelaxedMockK
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.Test
-import org.assertj.core.api.Assertions.assertThat
-
-import org.junit.jupiter.api.Assertions.*
 import io.mockk.junit5.MockKExtension
+import io.mockk.slot
+import io.mockk.verify
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.extension.ExtendWith
 import java.time.LocalDateTime
-
 
 @ExtendWith(MockKExtension::class)
 internal class TaskServiceTest {
@@ -33,7 +34,6 @@ internal class TaskServiceTest {
 
     private val task = Task()
     private lateinit var createRequest: TaskCreateRequest
-
 
     @BeforeEach
     fun setUp() {
@@ -161,7 +161,6 @@ internal class TaskServiceTest {
 
         assertThat(deleteTaskMsg).isEqualTo("Task with id: $taskId has been deleted.")
     }
-
 
     @Test
     fun `when delete by task id is called then check if argument could be captured`() {

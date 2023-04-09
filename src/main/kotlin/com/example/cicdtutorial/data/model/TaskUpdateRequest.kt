@@ -1,6 +1,5 @@
 package com.example.cicdtutorial.data.model
 
-
 data class TaskUpdateRequest(
     val description: String?,
     val isReminderSet: Boolean?,

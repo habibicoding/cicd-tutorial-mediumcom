@@ -1,13 +1,25 @@
 package com.example.cicdtutorial.data
 
 import com.example.cicdtutorial.data.model.Priority
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.SequenceGenerator
+import jakarta.persistence.Table
+import jakarta.persistence.UniqueConstraint
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "task", uniqueConstraints = [UniqueConstraint(name = "uk_task_description", columnNames = ["description"])])
+@Table(
+    name = "task",
+    uniqueConstraints = [UniqueConstraint(name = "uk_task_description", columnNames = ["description"])]
+)
 class Task {
 
     @Id

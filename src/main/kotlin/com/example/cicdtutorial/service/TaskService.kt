@@ -8,10 +8,10 @@ import com.example.cicdtutorial.exception.BadRequestException
 import com.example.cicdtutorial.exception.TaskNotFoundException
 import com.example.cicdtutorial.repository.TaskRepository
 import org.springframework.stereotype.Service
-import java.util.stream.Collectors
-import kotlin.reflect.full.memberProperties
 import org.springframework.util.ReflectionUtils
 import java.lang.reflect.Field
+import java.util.stream.Collectors
+import kotlin.reflect.full.memberProperties
 
 @Service
 class TaskService(private val repository: TaskRepository) {
@@ -49,7 +49,6 @@ class TaskService(private val repository: TaskRepository) {
 
     fun getAllClosedTasks(): List<TaskDto> =
         repository.queryAllClosedTasks().stream().map(this::convertEntityToDto).collect(Collectors.toList())
-
 
     fun getTaskById(id: Long): TaskDto {
         checkForTaskId(id)
