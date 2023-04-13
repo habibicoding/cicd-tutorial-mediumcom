@@ -64,7 +64,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: habibicoding/task-app-api:latest
+          tags: habibicoding/task-app-api-medium:latest
           context: .
 
       - name: Notify Docker push results
